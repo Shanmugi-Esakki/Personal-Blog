@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Posts</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    padding-top: 60px; /* Adjust padding to match the navbar height */
+}
+
+ .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #004579;
+            padding: 0.5rem 1rem; /* Added padding for better spacing */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000; /* Ensure it stays on top of other elements */
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            height: 50px; /* Smaller height for the logo */
+            width: auto;  /* Maintain aspect ratio */
+            max-height: 100%; /* Ensure it doesn't exceed navbar height */
+            margin-right: 10px; /* Space between logo and text */
+        }
+
+        .navbar .logo p {
+            color: white;
+            font-weight: bold;
+            margin: 0;
+        }
+.navbar .menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.navbar .menu a:hover {
+    color: #f1f9fe;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+h1 {
+    text-align: center;
+    color: #004579;
+    margin-bottom: 1rem;
+}
+
+.post {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.post img {
+    width: 100%;
+    max-width: 150px; /* Maximum width for the image */
+    height: auto; /* Adjusts height to maintain aspect ratio */
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+.post img:hover {
+    transform: scale(1.05);
+}
+
+.post-content {
+    flex: 1;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.post-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.post h2 {
+    color: #004579;
+    margin: 0;
+}
+
+.post p {
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.divider {
+    border-top: 1px solid #ddd;
+    margin: 1.5rem 0;
+}
+
+.buttons {
+    margin-top: 1rem;
+}
+
+.buttons button,
+.view-post-btn {
+    margin-right: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #004579;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.buttons button:hover,
+.view-post-btn:hover {
+    background-color: #003a6d;
+    transform: translateY(-2px);
+}
+
+.view-post-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #0067a3;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.view-post-btn:hover {
+    background-color: #004579;
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+    </style>
+</head>
+<body>
+	 <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/"><img src="/Personal1.png" alt="Personal Blog Logo"></a>
+            <p>PERSONAL BLOG</p>
+        </div>
+        <div class="menu">
+            <a th:href="@{/api/create}">Create New Post</a>
+            <a th:href="@{/api/view}">View All Posts</a>
+            <a th:href="@{/api/search}">Search</a>
+           <a href="#" class="link-icon"><i class="fas fa-heart"></i></a>
+
+            <a href="#" class="share-icon"><i class="fas fa-share-alt"></i></a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1>All Posts</h1><br/>
+       <center> <a class="view-post-btn" href="/api/create">Create New Post</a></center><br/><br/>
+        <div>
+            <div th:each="blog : ${blogs}" class="post">
+                <img th:src="@{/imgs/{imageName}(imageName=${blog.image})}" alt="Post Image">
+                <div class="post-content">
+                    <div class="post-header">
+                        <img src="/profile-icon.avif" alt="Profile Icon">
+                        <h2 th:text="${blog.name}">Post Title</h2>
+                    </div>
+                    <p th:text="${blog.desc}">Post Description</p>
+                    <div class="post-meta">
+                        <span th:text="'Posted By: ' + ${blog.postedBy}">Posted By</span>
+                        <span th:text="'Posted On: ' + ${#temporals.format(blog.postedOn, 'dd MMMM yyyy, hh:mm a')}">Posted On</span>
+                    </div>
+                     <div class="buttons">
+						 <a th:href="@{/posts/{id}(id=${blog.id})}" class="view-post-btn">View Post</a>
+            
+            <button>
+                <i class="fas fa-share"></i> 
+                Share
+            </button>
+        </div>
+                    
+                </div>
+            </div>
+            <div class="divider"></div>
+        </div>
+    </div>
+</body>
+
+</html>

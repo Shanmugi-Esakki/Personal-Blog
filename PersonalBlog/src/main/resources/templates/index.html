@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Blog</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+</head>
+<body>
+	<style>
+	body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f9fe;
+   
+   
+}
+
+    .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #004579;
+            padding: 0.5rem 1rem; /* Adjusted padding */
+            position: fixed;
+            width: 100%;
+            box-sizing: border-box; /* Ensure padding is included in width calculation */
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            height: 50px; /* Smaller height for the logo */
+            width: auto;  /* Maintain aspect ratio */
+            max-height: 100%; /* Ensure it doesn't exceed navbar height */
+            margin-right: 10px; /* Space between logo and text */
+        }
+
+        .navbar .logo p {
+            color: white;
+            font-weight:300;
+            margin: 0;
+        }
+
+.navbar .menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.navbar .menu a:hover {
+    color: #f1f9fe;
+}
+
+.hero-section {
+    background-image: url('/header-background.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    height: 200px;
+    padding-top: 200px;
+     animation: fadeIn 2s forwards;
+   
+}
+
+.hero-section .btn {
+    background-color: #004579;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.hero-section .btn:hover {
+    background-color: #003354;
+    transform: scale(1.05);
+}
+
+.main-content {
+    padding: 2rem;
+}
+.featured-posts .posts-grid {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.featured-posts .post {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    width: 100%;
+    max-width: 300px;
+    background-color: white;
+    border-radius: 5px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 350px; /* Fixed height */
+}
+
+.featured-posts .post img {
+    width: 100%;
+    height: 200px; /* Fixed height for images */
+    object-fit: cover; /* Ensure images cover the space */
+    border-radius: 5px 5px 0 0;
+}
+
+.featured-posts .post h3 {
+    flex-grow: 1; /* Allow heading to grow */
+    margin: 0.5rem 0;
+}
+
+.featured-posts .post p {
+    flex-grow: 1; /* Allow description to grow */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Prevent text overflow */
+}
+
+.featured-posts .post .read-more {
+    color: #004579;
+    text-decoration: none;
+    margin-top: auto; /* Push read more to the bottom */
+    transition: color 0.3s;
+}
+
+.featured-posts .post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.about-section, .contact-section {
+    margin-bottom: 2rem;
+}
+.about-section, .contact-section {
+    margin-bottom: 2rem;
+}
+
+.about-section {
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: slideInLeft 1s ease-out;
+}
+
+.about-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #004579;
+    position: relative;
+}
+
+.about-section h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: #004579;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    animation: growLine 1s ease-out;
+}
+
+.about-section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 1rem;
+    animation: fadeInUp 1.5s ease-out;
+}
+.contact-newsletter {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.contact-section, .newsletter {
+    flex: 1; /* Allow both sections to take equal space */
+    max-width: 48%; /* Ensure they don’t take more than half the width */
+    box-sizing: border-box;
+}
+
+.contact-section {
+    padding: 2rem;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.newsletter {
+    background-color: #336699;
+    color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.newsletter {
+    background-color: #336699;
+    color: #ffffff;
+    padding: 5rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 600px;
+    animation: fadeInUp 1s ease-out;
+   
+}
+
+.newsletter h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.newsletter p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.newsletter-form input[type="email"] {
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    flex: 1;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.newsletter-form input[type="email"]:focus {
+    background-color: #003a6d;
+}
+
+.subscribe-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #00aaff;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.subscribe-btn:hover {
+    background-color: #0088cc;
+    transform: translateY(-2px);
+}
+
+/* Keyframes for animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.contact-section {
+   
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-section form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-section label {
+    margin-top: 1rem;
+}
+
+.contact-section input, .contact-section textarea {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.contact-section button {
+    margin-top: 1rem;
+    background-color: #004579;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.contact-section button:hover {
+    background-color: #003354;
+    transform: scale(1.05);
+}
+
+.footer {
+    background-color: #003354;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+.footer .social-icons {
+    margin-top: 1rem;
+}
+
+.footer .social-icons .social-icon {
+    margin: 0 0.5rem;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.footer .social-icons .social-icon:hover {
+    color: #f1f9fe;
+    transform: scale(1.1);
+}
+/* Address Section Styles */
+.address-section {
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.address-section h2 {
+    font-size: 2rem;
+    color: #004579;
+    margin-bottom: 1.5rem;
+}
+
+.address-section .info-box {
+    font-size: 1rem;
+    color: #333;
+}
+
+.address-section .info-box p {
+    margin: 0.5rem 0;
+}
+
+/* Academic Qualifications Section Styles */
+.about-section {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-section h2 {
+    font-size: 2rem;
+    color: #004579;
+    margin-bottom: 1.5rem;
+}
+
+.about-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.about-section th,
+.about-section td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.about-section th {
+    background-color: #004579;
+    color: white;
+    font-weight: bold;
+}
+
+.about-section td {
+    background-color: #ffffff;
+}
+
+.about-section tr:nth-child(even) td {
+    background-color: #f1f9fe;
+}.about-section {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-section h2 {
+    font-size: 2rem;
+    color: #004579;
+    margin-bottom: 1rem;
+}
+
+.about-flex {
+    display: flex; /* Use Flexbox to layout items */
+    align-items: flex-start; /* Align items at the start */
+}
+
+.info-box {
+    flex: 1; /* Allow the info box to take available space */
+    margin-right: 0.5rem; /* Space between text and image */
+}
+
+.image-box {
+    width: 500px; /* Fixed width for the image box */
+}
+
+.image-box img {
+    width: 100%; /* Makes the image responsive */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 8px; /* Optional: adds rounded corners to the image */
+}
+
+
+
+	</style>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">
+		  
+	 
+            <a href="/"><img src="/Personal1.png" alt="Personal Blog Logo" ></a>
+            <p>Dr. C. HEMA</p>
+         </div>
+        <div class="menu">
+            <a th:href="@{/api/create}">Create New Post</a>
+            <a th:href="@{/api/view}">View All Posts</a>
+            <a th:href="@{/api/search}">Search</a>
+           <a href="#" class="link-icon"><i class="fas fa-heart"></i></a>
+
+            <a href="#" class="share-icon"><i class="fas fa-share-alt"></i></a>
+        </div>
+    </nav>
+    
+
+    <!-- Hero Section -->
+   <header class="hero-section">
+  <div class="hero-content">
+    <h1>Welcome to Dr. C. HEMA's Profile</h1>
+    <p>Associate Professor, CSE Department | Passionate Educator & Researcher</p>
+    <a th:href="@{/api/create}" class="btn">Get Started</a>
+  </div>
+</header>
+    
+
+    <!-- Main Content -->
+   <main class="main-content">
+  
+ <section class="about-section">
+    <h2>About Me</h2>
+    <div class="about-flex">
+        <div class="info-box">
+            <p>Hello! I am <strong>Dr. C. HEMA</strong>, an enthusiastic educator and researcher in the field of Computer Science and Engineering. I am passionate about shaping young minds and contributing to advancements in technology.</p>
+            <p><strong>Father’s Name:</strong> Mr. A. Chandra Bose</p>
+            <p><strong>Department:</strong> Computer Science and Engineering (CSE)</p>
+            <p><strong>Current Designation:</strong> I serve as an <strong>Associate Professor</strong>, with a salary range of ₹15600 - 39100 + 7000.</p>
+            <p><strong>Date of Last Promotion:</strong> I received my last promotion on <strong>01-Apr-2016</strong>, which marked an important milestone in my career.</p>
+            <p><strong>Position & Grade Pay Applied Under CAS:</strong> I am currently applying for the position of Associate Professor with AGP 9000 under the Career Advancement Scheme (CAS).</p>
+            <p><strong>Date of Eligibility for Promotion:</strong> I am eligible for my next promotion as of <strong>01-Apr-2021</strong>.</p>
+            <p><strong>Date and Place of Birth:</strong> I was born on <strong>03-Apr-1983</strong> in the quaint town of Sattur.</p>
+            <p><strong>Sex:</strong> Female</p>
+            <p><strong>Marital Status:</strong> I am happily married.</p>
+            <p><strong>Nationality:</strong> I proudly hold Indian nationality.</p>
+            <p><strong>Category:</strong> OBC</p>
+            <p>Throughout my career, I have dedicated myself to both teaching and research, with a keen interest in developing innovative solutions in the tech space. I look forward to sharing my journey, insights, and experiences through this blog!</p>
+        </div>
+        <div class="image-box">
+            <img src="/imgs/propic.jpg" alt="Dr. C. HEMA" />
+        </div>
+    </div>
+</section>
+
+
+
+  <section class="address-section">
+    <h2>Contact Information</h2>
+    <div class="info-box">
+      <p><strong>Address for Correspondence:</strong> 80, Sankara Salai, Subham Nagar – II, Old Pallavaram, Chennai - 600117</p>
+      <p><strong>Permanent Address:</strong> 80, Sankara Salai, Subham Nagar – II, Old Pallavaram, Chennai - 600117</p>
+      <p><strong>Mobile No:</strong> 7397463890</p>
+      <p><strong>Email:</strong> <a href="mailto:hemac@crescent.education">hemac@crescent.education</a></p>
+    </div>
+  </section>
+
+  <!-- Academic Qualifications Section -->
+  <section class="about-section">
+    <h2>Academic Qualifications</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Examinations</th>
+          <th>Name of the Board / University</th>
+          <th>Year of Passing</th>
+          <th>Division / Class / Grade</th>
+          <th>Subject</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>12th Std</td>
+          <td>State Board</td>
+          <td>2000</td>
+          <td>First Class</td>
+          <td>Mathematics and Biology</td>
+        </tr>
+        <tr>
+          <td>B.E. (IT)</td>
+          <td>Madurai Kamaraj University</td>
+          <td>2004</td>
+          <td>First Class</td>
+          <td>Information and Technology</td>
+        </tr>
+        <tr>
+          <td>M.E. (CSE)</td>
+          <td>Anna University</td>
+          <td>2007</td>
+          <td>First Class with Distinction</td>
+          <td>Computer Science and Engineering</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>        <!-- Featured Posts -->
+          <section class="featured-posts">
+            <h2>Research Highlights & Featured Work</h2>
+            <div  class="posts-carousel">
+                <!-- Posts will be dynamically injected here -->
+            </div>
+        </section><br/><br/>
+
+       
+        <!-- Contact and Newsletter Section -->
+    <section class="contact-newsletter">
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2>Get in Touch</h2>
+            <form th:action="@{/submitContact}" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </div>
+
+      
+    </section>
+    </main>
+    
+
+    <!-- Footer -->
+ <footer class="footer">
+  <p>&copy; 2024 Dr. C. HEMA. All rights reserved.</p>
+  <div class="contact-info">
+    <p>Email: <a href="mailto:hemac@crescent.education">hemac@crescent.education</a></p>
+    <p>Phone: <a href="tel:+7397463890">+7397463890</a></p>
+  </div>
+  <div class="social-icons">
+    <a th:href="@{/api/insta}" class="instagram-icon"><i class="fab fa-instagram"></i></a>
+    <a th:href="@{/api/facebook}" class="facebook-icon"><i class="fab fa-facebook"></i></a>
+    <a href="#" class="twitter-icon"><i class="fab fa-twitter"></i></a>
+  </div>
+</footer>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function(){
+			console.log("one");
+            $('.posts-carousel').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+
+            // Fetch posts from the database
+            $.ajax({
+                url: '/findAll', // Replace with your API endpoint
+                method: 'GET',
+                success: function(posts) {
+					console.log("two");
+                    posts.forEach(post => {
+						console.log("three");
+                        $('.posts-carousel').slick('slickAdd', `
+                            <article class="post">
+                                <img src="/imgs/${post.image}" alt="Post Image">
+                                <h2>${post.name}</h2>
+                                <p>${post.desc}</p>
+                                 <a href="http://localhost:8080/posts/${post.id}" class="read-more">Read More</a>
+                            </article>
+                        `);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
